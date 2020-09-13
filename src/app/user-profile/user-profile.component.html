@@ -1,0 +1,202 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top ">
+    <span class="navbar-brand">Hi, Admin<br>
+       
+    </span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse offset-8" id="navbarNavDropdown">
+
+        <button class="btn btn-link btn-sm" style="font-weight: bold;font-size: large ;"
+            (click)="[selected='createstudent']" [disabled]="selected=='createstudent'">Create Student</button>
+        <br>
+        <button class="btn-link btn-sm btn" style="font-weight: bold;font-size: large ;"
+            (click)="selected='showstudents'" [disabled]="selected=='showstudents'">Show Students</button>
+        <br>
+
+        <button class="btn btn-md btn-danger" (click)="onLogout()">Logout</button>
+
+
+
+    </div>
+</nav>
+<br><br><br><br><br>
+<div *ngIf="selected=='createstudent'">
+    <br><br><br>
+    <div class="card col-sm-5 " style="background-color:black;color:white;border-radius: 20px">
+      <div class="card-header font-weight-bold" style="font-family:monospace;text-align: center;">
+        <div class="row ">
+          
+          <div class="col-sm-12" stylr="text-align: center;">
+            <span class="font-weight-bold " 
+              style="color: white;font-size:x-large;"><u style="color: white">Student Registration Form </u></span>
+          </div>
+        </div>
+        <hr style=" border-top: 1px dotted white;">
+      </div>
+      <div class="card-body" style="text-align: left;" >
+        <form [formGroup]="signUpForm" class="font-weight-bold" >
+          <label for="Name"><span style="color: red;">*</span>Name</label>
+          <div>
+            <input class="form-control" type="text" formControlName="name" id="Name" class="form-control"
+              placeholder="Name">
+    
+    
+            <div
+              *ngIf="signUpForm.controls.name.invalid && (signUpForm.controls.name.dirty || signUpForm.controls.name.touched)"
+              class="text-danger">
+              <span *ngIf="signUpForm.controls.name.errors.required">This field is Required</span>
+              <span *ngIf="signUpForm.controls.name.errors.pattern">Enter valid name "Firstname Lastname"</span>
+            </div>
+          </div>
+          <br>
+          <label for="dob"><span style="color: red;">*</span>DOB</label>
+          <div>
+              <input class="form-control" type="date" formControlName="dob" id="dob" [(ngModel)]="dob">
+          </div>
+          <br>
+          <label for="age"><span style="color: red;">*</span>Age</label>
+          <div>
+              
+              <input class="form-control" type="text"  id="age" [value]="0" *ngIf="!dob" disabled >
+              <input class="form-control" type="text"  id="age" [value]="agecal()" *ngIf="dob" disabled >
+          </div>
+          
+          <br>
+          <label for="ad1"><span style="color: red;">*</span>Address Line 1</label>
+          <div>
+            
+            <input class="form-control" type="text"  id="ad1" class="form-control" formControlName="ad1"
+            placeholder="ad1" >
+          </div>
+          <br>
+          <label for="ad2"><span style="color: red;">*</span>Address Line 2</label>
+          <div>
+            
+            <input class="form-control" type="text"  id="ad2" class="form-control" formControlName="ad2"
+            placeholder="ad2" >
+          </div>
+          <br>
+          <label for="state"><span style="color: red;">*</span>State</label>
+          <div>
+            
+              <select class="form-control" (change)="stateselected($event.target.value)" formControlName="state">
+                  <option *ngFor="let state of india | state;index as i" [value]="state" >{{state}}</option>
+              </select>
+          </div>
+          <br>
+          <label for="city"><span style="color: red;">*</span>City</label>
+          <div>
+            
+              <select class="form-control" formControlName="city" >
+                  <option *ngFor="let city of india | city : state;index as i"  >{{city}}</option>
+              </select>
+          </div>
+          <br>
+          <label for="pincode"><span style="color: red;">*</span>Pin Code</label>
+          <div>
+            
+            <input class="form-control" type="number"  id="pincode" class="form-control"
+            placeholder="pincode" formControlName="pincode">
+          </div>
+          <br>
+          <label ><span style="color: red;">*</span>Parents Name</label>
+          <div class="offset-1">
+            <label for="father"><span style="color: red;">*</span>Father's Name</label>
+          <input class="form-control" type="text"  id="father" class="form-control"
+            placeholder="father name" formControlName="fname">
+            <br>
+            <label for="mother"><span style="color: red;">*</span>Mother's Name</label>
+          <input class="form-control" type="text"  id="mother" class="form-control"
+            placeholder="mother name" formControlName="mname">
+          </div>
+          <br>
+          <div>
+            <label for="mobileNo"><span style="color: red;">*</span>Mobile No</label>
+            <div>
+              <input class="form-control" type="text" formControlName="mobileNo" id="mobileNo" class="form-control"
+                placeholder="MobileNo">
+    
+            </div>
+           
+            <div
+              *ngIf="signUpForm.controls.mobileNo.invalid && (signUpForm.controls.mobileNo.dirty || signUpForm.controls.mobileNo.touched)"
+              class="text-danger">
+              <span *ngIf="signUpForm.controls.mobileNo.errors.required">This field is Required</span>
+              <span *ngIf="signUpForm.controls.mobileNo.errors.pattern">Enter valid 10 digit mobileNo</span>
+            </div>
+          </div>
+          <br>
+          <div class="checkbox">
+            <label><input type="checkbox" (change)="checkboxcheck()" formControlName="check">Add notes</label>
+          </div>
+          <br>
+          <textarea class="form-control" type="textarea" id="note" name="note" *ngIf="checkboxtoggle" formControlName="textboxarea"></textarea>
+    
+          <br>
+          <button class="btn btn-success btn-block"  (click)="submitSignUp()" [disabled]="signUpForm.invalid">Register</button>
+          <button class="btn btn-warning btn-block" (click)="reset()">Reset</button>
+    
+          <hr>
+          <span *ngIf="signUpErrorMessage" class="text-danger">{{signUpErrorMessage}}</span>
+    
+        </form>
+    
+      </div>
+      
+    
+    </div>
+    <br><br><br>
+
+</div>
+
+
+
+<div *ngIf="selected=='showstudents'">
+  <h1 class=" col-md-5"><center>Students Data</center></h1>
+        <br><br><br>
+        <div class=" col-md-12">
+         
+            <div style="text-align: center;" class=" col-md-5">
+                <pagination-controls (pageChange)="p = $event" class="my-pagination"></pagination-controls>
+                    
+                </div>
+            <div  style="text-align: center;" class="table">
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th style="width: max-content;">Name</th>
+                        <th>Mobile</th>
+                      
+                        <th>View</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                    <tbody >
+                        <tr *ngFor="let student of userDetails | paginate: { itemsPerPage: 10, currentPage: p };let i=index">
+                          <td>{{p*10+i+1-10}}</td>
+                          <td style="width: max-content;">{{student.name}}</td>
+                          <td>{{student.mobileNo}}</td>
+                 
+                          <td style="text-align: center;">  <a routerLink="/view/{{student._id}}" routerLinkActive="active"><button  class="btn btn-sm btn-success"  >View</button></a></td>
+                          <td style="text-align: center;"> <a routerLink="/edit/{{student._id}}" routerLinkActive="active"><button  class="btn btn-sm btn-warning"  >Edit</button></a></td>
+                          <td style="text-align: center;"><button  class="btn btn-sm btn-danger" (click)="delete(student._id)" >Delete</button></td>
+                          
+                        
+                        
+                          </tr>
+                          
+                         
+                          
+                          
+                    </tbody>
+                    <br>
+                        
+                
+            </div>
+        
+        
+    </div> 
+    </div>

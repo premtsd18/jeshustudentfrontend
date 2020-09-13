@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "clubid"
+    }
+  },
+  "defaultProject": "clubid",
+  "cli": {
+    "analytics": "fbefc549-e7db-4b93-adb9-f1672f17b37b"
+  }
 }

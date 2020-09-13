@@ -1,0 +1,125 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top ">
+  <span class="navbar-brand">Hi, Admin<br>
+     
+  </span>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse offset-9" id="navbarNavDropdown">
+
+      <button class="btn btn-link btn-sm" style="font-weight: bold;font-size: large ;"
+         (click)="goback()"  >Go Back</button>
+      <br>
+      
+
+      <button class="btn btn-md btn-danger" (click)="onLogout()">Logout</button>
+
+
+
+  </div>
+</nav>
+<br><br><br><br><br><br>
+    <div class="card col-sm-5 " style="background-color:black;color:white;border-radius: 20px">
+      <div class="card-header font-weight-bold" style="font-family:monospace;text-align: center;">
+        <div class="row ">
+          
+          <div class="col-sm-12" stylr="text-align: center;">
+            <span class="font-weight-bold " 
+              style="color: white;font-size:x-large;"><u style="color: white">Student Data </u></span>
+          </div>
+        </div>
+        <hr style=" border-top: 1px dotted white;">
+      </div>
+      <div class="card-body" style="text-align: left;" >
+        <form  class="font-weight-bold" >
+          <label for="Name"><span style="color: red;">*</span>Name</label>
+          <div>
+            <input class="form-control" type="text"  id="Name" class="form-control"
+              placeholder="Name" value="{{student.name}}" disabled>
+    
+    
+            
+          </div>
+          <br>
+          <label for="dob"><span style="color: red;">*</span>DOB</label>
+          <div>
+              <input class="form-control" type="text" value="{{student.dob.split('T')[0]}}" disabled>
+          </div>
+          <br>
+          <label for="age"><span style="color: red;">*</span>Age</label>
+          <div>
+              
+              
+              <input class="form-control" type="text"  id="age"  value="{{student.age}}"  disabled >
+          </div>
+          
+          <br>
+          <label for="ad1"><span style="color: red;">*</span>Address Line 1</label>
+          <div>
+            
+            <input class="form-control" type="text"  id="ad1" class="form-control" 
+            placeholder="ad1" value="{{student.ad1}}"  disabled>
+          </div>
+          <br>
+          <label for="ad2"><span style="color: red;">*</span>Address Line 2</label>
+          <div>
+            
+            <input class="form-control" type="text"  id="ad2" class="form-control" 
+            placeholder="ad2" value="{{student.ad2}}"  disabled>
+          </div>
+          <br>
+          <label for="state"><span style="color: red;">*</span>State</label>
+          <div>
+            
+              <input class="form-control" type="text" value="{{student.state}}"  disabled>
+          </div>
+          <br>
+          <label for="city"><span style="color: red;">*</span>City</label>
+          <div>
+            
+              <input class="form-control" type="text" value="{{student.city}}"  disabled>
+          </div>
+          <br>
+          <label for="pincode"><span style="color: red;">*</span>Pin Code</label>
+          <div>
+            
+            <input class="form-control" type="number"  id="pincode" class="form-control"
+            placeholder="pincode" value="{{student.pincode}}"  disabled>
+          </div>
+          <br>
+          <label ><span style="color: red;">*</span>Parents Name</label>
+          <div class="offset-1">
+            <label for="father"><span style="color: red;">*</span>Father's Name</label>
+          <input class="form-control" type="text"  id="father" class="form-control"
+            placeholder="father name"value="{{student.fname}}"  disabled >
+            <br>
+            <label for="mother"><span style="color: red;">*</span>Mother's Name</label>
+          <input class="form-control" type="text"  id="mother" class="form-control"
+            placeholder="mother name"value="{{student.mname}}"  disabled >
+          </div>
+          <br>
+          <div>
+            <label for="mobileNo"><span style="color: red;">*</span>Mobile No</label>
+            <div>
+              <input class="form-control" type="text"  id="mobileNo" class="form-control"
+                placeholder="MobileNo" value="{{student.mobileNo}}"  disabled>
+    
+            </div>
+           
+          </div>
+          <br>
+          <div class="checkbox" *ngIf="student.check==true&&student.textboxarea!=''">
+            <label>Text FeedBack</label>
+          
+          <br>
+          <textarea class="form-control" type="textarea" id="note" name="note"  value={{student.textboxarea}} disabled ></textarea>
+    
+        </div>
+    
+        </form>
+    
+      </div>
+    </div>
+    <br><br><br>
+    

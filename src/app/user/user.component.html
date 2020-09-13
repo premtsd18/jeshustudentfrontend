@@ -1,0 +1,52 @@
+<br><br><br>
+<div class="card col-sm-5 " style="background-color:black;color:white;border-radius: 20px">
+  <div class="card-header font-weight-bold" style="font-family:monospace;text-align: center;">
+    <div class="row ">
+      <div class="col-sm-12">
+        <span class="font-weight-bold" (click)="[signin =true]"
+          style="color: white;font-size:xx-large;"><u style="color: white">Authenticate yourself</u> </span>
+      </div>
+      
+    </div>
+    <hr style=" border-top: 1px dotted white;">
+  </div>
+  
+  <div class="card-body" style="text-align: left;" *ngIf="signin==null || signin==true">
+    <form [formGroup]="signInForm" class="font-weight-bold" (ngSubmit)="signInSubmit()">
+      <span *ngIf="showSucessMessage" class="text-success">Registration successful</span>
+      <div>
+        <label for="mobileNo"><span style="color: red;">*</span>Mobile No</label>
+        <div>
+          <input class="form-control" type="text" formControlName="mobileNo" id="mobileNo" class="form-control"
+            placeholder="MobileNo">
+
+        </div>
+        <div
+          *ngIf="signInForm.controls.mobileNo.invalid && (signInForm.controls.mobileNo.dirty || signInForm.controls.mobileNo.touched)"
+          class="text-danger">
+          <span *ngIf="signInForm.controls.mobileNo.errors.required">This field is Required</span>
+          <span *ngIf="signInForm.controls.mobileNo.errors.pattern">Enter valid 10 digit mobileNo</span>
+        </div>
+      </div>
+      <br>
+      <div>
+        <label for="password"><span style="color: red;">*</span>Enter Password</label>
+        <div>
+          <input class="form-control" type="password" formControlName="password" id="password" class="form-control"
+            placeholder="Password">
+
+        </div>
+        <div
+          *ngIf="signInForm.controls.password.invalid && (signInForm.controls.password.dirty || signInForm.controls.password.touched)"
+          class="text-danger">
+          <span *ngIf="signInForm.controls.password.errors.required">This field is Required</span>
+          <span *ngIf="signInForm.controls.password.errors.pattern">MinLength-8 MaxLength-15</span>
+        </div>
+      </div>
+      <br>
+      <button class="btn btn-success btn-block" type="submit" [disabled]="signInForm.invalid">Login</button><br>
+      <span *ngIf="signInErrorMessages" class="text-danger">{{signInErrorMessages}}</span>
+    </form>
+  </div>
+
+</div>

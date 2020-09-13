@@ -1,0 +1,148 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top ">
+    <span class="navbar-brand">Hi, Admin<br>
+       
+    </span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse offset-9" id="navbarNavDropdown">
+  
+        <button class="btn btn-link btn-sm" style="font-weight: bold;font-size: large ;"
+           (click)="goback()"  >Go Back</button>
+        <br>
+        
+  
+        <button class="btn btn-md btn-danger" (click)="onLogout()">Logout</button>
+  
+  
+  
+    </div>
+  </nav>
+  <br><br><br>
+<br><br><br>
+<div class="card col-sm-5 " style="background-color:black;color:white;border-radius: 20px">
+  <div class="card-header font-weight-bold" style="font-family:monospace;text-align: center;">
+    <div class="row ">
+      
+      <div class="col-sm-12" stylr="text-align: center;">
+        <span class="font-weight-bold " 
+          style="color: white;font-size:xx-large;"><u style="color: white">Edit Student</u></span>
+      </div>
+    </div>
+    <hr style=" border-top: 1px dotted white;">
+  </div>
+  <div class="card-body" style="text-align: left;" >
+    <form [formGroup]="signUpForm" class="font-weight-bold" >
+      <label for="Name"><span style="color: red;">*</span>Name</label>
+      <div>
+        <input class="form-control" type="text" formControlName="name" id="Name" class="form-control"
+          placeholder="Name" value="{{student.name}}">
+
+
+        <div
+          *ngIf="signUpForm.controls.name.invalid && (signUpForm.controls.name.dirty || signUpForm.controls.name.touched)"
+          class="text-danger">
+          <span *ngIf="signUpForm.controls.name.errors.required">This field is Required</span>
+          <span *ngIf="signUpForm.controls.name.errors.pattern">Enter valid name "Firstname Lastname"</span>
+        </div>
+      </div>
+      <br>
+      <label for="dob"><span style="color: red;">*</span>DOB</label>
+      <div>
+          <input value="{{student.dob.split('T')[0].split('-')[2]}}/{{student.dob.split('T')[0].split('-')[1]}}/{{student.dob.split('T')[0].split('-')[0]}}" class="form-control" type="text" onfocus="(this.type='date')" id="date" formControlName="dob" (change)="agecal()">
+      </div>
+      <br>
+      <label for="age"><span style="color: red;" >*</span>Age</label>
+      <div>
+          
+          
+          <input class="form-control" type="text"  id="age"    [value]="agecal()" disabled>
+      </div>
+      
+      <br>
+      <label for="ad1"><span style="color: red;">*</span>Address Line 1</label>
+      <div>
+        
+        <input class="form-control" type="text"  id="ad1" class="form-control" formControlName="ad1"
+        placeholder="ad1"  value="{{student.ad1}}">
+      </div>
+      <br>
+      <label for="ad2"><span style="color: red;">*</span>Address Line 2</label>
+      <div>
+        
+        <input class="form-control" type="text"  id="ad2" class="form-control" formControlName="ad2"
+        placeholder="ad2"  value="{{student.ad2}}">
+      </div>
+      <br>
+      <label for="state"><span style="color: red;">*</span>State</label>
+      <div>
+        
+          <select class="form-control" (change)="stateselected($event.target.value)" formControlName="state"  value="{{student.state}}">
+              <option *ngFor="let state of india | state;index as i" [value]="state" >{{state}}</option>
+          </select>
+      </div>
+      <br>
+      <label for="city"><span style="color: red;">*</span>City</label>
+      <div>
+        
+          <select class="form-control" formControlName="city"  value="{{student.city}}">
+              <option *ngFor="let city of india | city : state;index as i"  >{{city}}</option>
+          </select>
+      </div>
+      <br>
+      <label for="pincode"><span style="color: red;">*</span>Pin Code</label>
+      <div>
+        
+        <input class="form-control" type="number"  id="pincode" class="form-control"
+        placeholder="pincode" formControlName="pincode"  value="{{student.pincode}}">
+      </div>
+      <br>
+      <label ><span style="color: red;">*</span>Parents Name</label>
+      <div class="offset-1">
+        <label for="father"><span style="color: red;">*</span>Father's Name</label>
+      <input class="form-control" type="text"  id="father" class="form-control"
+        placeholder="father name" formControlName="fname"  value="{{student.fname}}">
+        <br>
+        <label for="mother"><span style="color: red;">*</span>Mother's Name</label>
+      <input class="form-control" type="text"  id="mother" class="form-control"
+        placeholder="mother name" formControlName="mname"  value="{{student.mname}}">
+      </div>
+      <br>
+      <div>
+        <label for="mobileNo"><span style="color: red;">*</span>Mobile No</label>
+        <div>
+          <input class="form-control" type="text" formControlName="mobileNo" id="mobileNo" class="form-control"
+            placeholder="MobileNo"  value="{{student.mobileNo}}">
+
+        </div>
+       
+        <div
+          *ngIf="signUpForm.controls.mobileNo.invalid && (signUpForm.controls.mobileNo.dirty || signUpForm.controls.mobileNo.touched)"
+          class="text-danger">
+          <span *ngIf="signUpForm.controls.mobileNo.errors.required">This field is Required</span>
+          <span *ngIf="signUpForm.controls.mobileNo.errors.pattern">Enter valid 10 digit mobileNo</span>
+        </div>
+      </div>
+      <br>
+      <div class="checkbox">
+        <label><input type="checkbox" (change)="student.check=!student.check"   value="{{student.check}}">Add notes</label>
+      </div>
+      <br>
+      <textarea class="form-control" type="textarea" id="note" name="note" *ngIf="student.check" formControlName="textboxarea"  value="{{student.textboxarea}}"></textarea>
+
+      <br>
+      <button class="btn btn-success btn-block"  (click)="submitSignUp()" >Register</button>
+    
+
+      <hr>
+      <span *ngIf="signUpErrorMessage" class="text-danger">{{signUpErrorMessage}}</span>
+
+    </form>
+
+  </div>
+  
+
+</div>
+<br><br><br>
+
